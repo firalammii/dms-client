@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import './form.css';
 
-const BASE_URL = 'http://localhost:3000/api/person';
+// const BASE_URL = 'http://localhost:3000/api/person';
+const BASE_URL = 'https://dms-server.onrender.com/api/person';
 const ENDPOINT = '/post';
 
 function Signup ({ toggleSignupOrLoginDisplay, addSubscription, user }) {
