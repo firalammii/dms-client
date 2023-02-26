@@ -1,0 +1,87 @@
+.signup-h1 {
+    margin: 1em auto auto;
+}
+
+.signup-h1,
+.login-h1 {
+    font-size: 3rem;
+}
+
+.signup-form {
+    background-color: #242424;
+    color: rgb(231, 231, 250);
+    flex-direction: column;
+    gap: 1.5em;
+    width: 400px;
+    height: 687px;
+    padding: .5em .1em 4em;
+    border-radius: .4em;
+}
+
+.signup-form,
+.label-n-input-container-inside-form {
+    display: flex;
+    justify-content: center;
+}
+
+.label-n-input-container-inside-form {
+    width: 100%;
+    gap: 1em;
+}
+
+.signup-inputs {
+    width: 80%;
+    padding: .5em .5em;
+    border: none;
+    border-radius: .3em;
+    font-size: 1.25rem;
+}
+
+/* .signup-inputs:focus,
+.signup-inputs:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+} */
+
+
+#type-submit-input,
+.log-out-btn {
+    padding: .5em 1em;
+    background-color: rgb(139, 135, 135);
+    color: rgb(231, 231, 250);
+    font-size: 1.3rem;
+    font-weight: 600;
+    border: none;
+    border-radius: .3em;
+}
+
+#type-submit-input:hover {
+    background-color: rgb(96, 100, 104);
+}
+
+p>a {
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: rgb(231, 231, 250);
+    text-decoration: none;
+    background-color: goldenrod;
+    padding: .1em .8em;
+    border-radius: .2em;
+    margin: auto .5em;
+}
+
+p>a:hover {
+    color: darkgreen;
+}
+
+.p {
+    color: rgb(231, 231, 250);
+}
+
+/* .signup-form-container {
+    width: 400px;
+    height: 100vh;
+    background-color: #242424;
+    color: rgb(231, 231, 250);
+    padding: .5em .1em 4em;
+    border-radius: .4em;
+} */
