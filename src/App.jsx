@@ -4,47 +4,65 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 
 function App () {
+    const [subscribers, setSubscribers] = useState(JSON.parse(localStorage.getItem("subscribers")) || []);
+    const [removedSubscribers, setRemovedSubscribers] = useState(JSON.parse(localStorage.getItem("removedSubscribers")) || []);
 
-    const [subscriber, setSubscriber] = useState(JSON.parse(localStorage.getItem("person")) || null);
+    const [toggleSignUpnLogin, setToggleSignUpnLogin] = useState(true); // to determine to render signup page or login page 
+    //to be improved later
+    const [subscriberAdded, setSubscriberAdded] = useState(false); // just to be triggered by useEffect to save added subscribers
+    const [subscriberRemoved, setSubscriberRemoved] = useState(false); // just to be triggered by useEffect to save removed subscribers
 
-    function unSubscribeMe () {
-        console.log("unSubscribeMe");
-        setSubscriber(null);
-        localStorage.clear();
+    useEffect(() => {
+        localStorage.setItem("subscribers", JSON.stringify(subscribers));
+    }, [subscriberAdded]);
+
+    useEffect(() => {
+        localStorage.setItem("removedSubscribers", JSON.stringify(removedSubscribers));
+    }, [subscriberRemoved]);
+
+    function signupNloginToggler () {
+        setToggleSignUpnLogin(prevState => !prevState);
     }
-    // function createSubscriber () {
-    //     localStorage.setItem("person", value);
-    // }
-    function toggleSubscriber () {
-        console.log("toggleSubscriber is clicked");
-        const subscribedPerson = JSON.parse(localStorage.getItem("person"));
-        if (subscribedPerson) {
-            localStorage.removeItem("person");
-            setSubscriber(null);
-        } else {
-            alert("Sorry!,\nYou should be a subscriber first!!");
-        }
+    function toggleSubscriberAdded () {
+        setSubscriberAdded(prevState => !prevState);
+    }
+    function toggleSubscriberRemoved () {
+        setSubscriberRemoved(prevState => !prevState);
     }
 
+    async function addSubscriberToArray (personData) {
+        setSubscribers([...subscribers, personData]);
+        toggleSubscriberAdded();
+    }
+
+    function handleUnSubscribeMe (username) {
+        const newSubscribers = subscribers.filter(eachObj => eachObj.username !== username);
+        setSubscribers(newSubscribers);
+        toggleSubscriberAdded();
+
+        const unsubscribed = subscribers.filter(eachObj => eachObj.username === username)[0];
+        setRemovedSubscribers([...removedSubscribers, unsubscribed]);
+        toggleSubscriberRemoved();
+    }
 
     return (
-    <div className="App">
+        <div className="App">
             <div className='inner-app'>
                 {
-                    subscriber ?
+                    toggleSignUpnLogin ?
                         <Login
-                            toggleSubscriber={toggleSubscriber}
+                            subscribers={subscribers}
+                            signupNloginToggler={signupNloginToggler}
+                            handleUnSubscribeMe={handleUnSubscribeMe}
                         />
                         :
                         <Signup
-                            unSubscribeMe={unSubscribeMe}
-                            setSubscriber={setSubscriber}
-                            toggleSubscriber={toggleSubscriber}
+                            signupNloginToggler={signupNloginToggler}
+                            addSubscriberToArray={addSubscriberToArray}
                         />
-
                 }
             </div>
-    </div>
+        </div>
     );
 }
 

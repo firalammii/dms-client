@@ -1,62 +1,39 @@
-import axios from "axios";
 import React, { useState, useRef, useEffect } from "react";
 
 import './form.css';
 import PersonalProfile from "./PersonalProfile";
-import Signup from "./Signup";
 
-const BASE_URL = 'http://localhost:3000/api/person';
-// const BASE_URL = 'https://dms-server.onrender.com/api/person';
-const ENDPOINT = '/login';
-
-function Login ({ toggleSubscriber }) {
+function Login ({ signupNloginToggler, subscribers, handleUnSubscribeMe }) {
 
     const [person, setPerson] = useState({
         username: "", pwd: ""
     });
-    const [loggedIn, setLoggedIn] = useState(false);
+
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
 
-    function toggleLoggedIn () {
-        setLoggedIn(prevState => !prevState);
-    }
+    const usernameFocus = useRef(null);
 
-    useEffect(() => {
-        console.log("useEffect due to loggedIn change");
-
-    }, [loggedIn]);
-    const inputfocus = useRef(null);
+    const pwdFocus = useRef(null);
 
     useEffect(() => {
         if (!user)
-            inputfocus.current.focus();
+            usernameFocus.current.focus();
     }, []);
 
     function handleLogin (e) {
         e.preventDefault();
         const { username, pwd } = person;
         if (username && pwd) {
-            localStorage.setItem("user", JSON.stringify(person));
-            setUser(person);
-            setPerson({ username: "", pwd: "" });
-            //     axios.post(BASE_URL + ENDPOINT, { username, pwd })
-            //         .then(res => {
-            //             console.log(res);
-            //             if (res) {
-            //                 const msg = res.data.message;
-            //                 if (msg === 'allow') {
-            //                     localStorage.setItem("user", JSON.stringify(res.data.person));
-            //                     console.log(msg);
-            //                 } else if (msg === 'password_error') {
-            //                     console.log(msg);
-            //                 } else if (msg === 'not_found') {
-            //                     console.log(msg);
-            //                 }
-            //             } else {
-            //                 console.log(res.data.message);
-            //             }
-            //         })
-            //         .catch(err => console.log(err));
+            const subscriber = subscribers.filter(obj => obj.username === username)[0];
+            if (subscriber && subscriber.pwd === pwd) {
+                localStorage.setItem("user", JSON.stringify(subscriber));
+                setUser(subscriber);
+                setPerson({ username: "", pwd: "" });
+            } else if (subscriber && subscriber.pwd !== pwd) {
+                pwdFocus.current.focus();
+            } else {
+                usernameFocus.current.focus();
+            }
         }
     }
 
@@ -66,13 +43,17 @@ function Login ({ toggleSubscriber }) {
 
     return (
         <div className='signup-form-container login'>
-            {user ?
-                <PersonalProfile user={user} setUser={setUser} />
+            {
+                user ?
+                    <PersonalProfile
+                        user={user}
+                        setUser={setUser}
+                        handleUnSubscribeMe={handleUnSubscribeMe}
+                    />
                 :
                 <form className='signup-form' onSubmit={(e) => handleLogin(e)} >
                     <h1 className='login-h1'>Login Form</h1>
-                    <div className='label-n-input-container-inside-form'>
-                        {/* <label htmlFor="first-name">First Name: </label> */}
+                        <div className='label-n-input-container-inside-form'>
                         <input
                             name='username'
                             id='user-name'
@@ -82,11 +63,10 @@ function Login ({ toggleSubscriber }) {
                             value={person.username}
                             onChange={(e) => onChangeHandler(e)}
                             required
-                            ref={inputfocus}
+                                ref={usernameFocus}
                         />
                     </div>
-                    <div className='label-n-input-container-inside-form'>
-                        {/* <label htmlFor="first-name">First Name: </label> */}
+                        <div className='label-n-input-container-inside-form'>
                         <input
                             name='pwd'
                             id='pwd'
@@ -95,6 +75,7 @@ function Login ({ toggleSubscriber }) {
                             placeholder='password'
                             value={person.pwd}
                             onChange={(e) => onChangeHandler(e)}
+                                ref={pwdFocus}
                             required
                         />
                     </div>
@@ -107,7 +88,7 @@ function Login ({ toggleSubscriber }) {
                         />
                     </div>
                     <div className='label-n-input-container-inside-form'>
-                        <p className="p">New user? <a href='#' className='link-btn' onClick={toggleSubscriber}>Create One</a></p>
+                            <p className="p">New user? <a href='#' className='link-btn' onClick={signupNloginToggler}>Create One</a></p>
                     </div>
                 </form>
             }

@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import Login from './Login';
+import React from 'react';
 
-function PersonalProfile ({ user, setUser }) {
-    console.log(user);
-    // const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
+function PersonalProfile ({ user, setUser, handleUnSubscribeMe }) {
 
     function logOut () {
-        console.log("logOut clicked");
         setUser(null);
         localStorage.removeItem('user');
-
     }
-    const pp = user ? 
-        <div>
+
+    function unsubscribeNlogOut () {
+        handleUnSubscribeMe(user.username);
+        logOut();
+    }
+
+    const pp = user ?
+        <div className='signup-form'>
             <h1>Personal Profile</h1>
             <h2>username: {user.username}</h2>
             <button className='log-out-btn' onClick={logOut}> Log Out</button>
+            <div className='label-n-input-container-inside-form'>
+                <p className='p'>
+                    Not Happy?
+                    <a href='#' className='link-unsubscribe-btn' onClick={unsubscribeNlogOut}> unsubscribe me </a>
+                </p>
+            </div>
         </div>
         :
         setUser(null);
 
-    return (
-        <>
-            {
-                pp
-            }
-        </>
-
-    );
+    return (<>{pp}</>);
 }
 
 export default PersonalProfile;

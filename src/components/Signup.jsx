@@ -1,13 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import './form.css';
-import PersonalProfile from './PersonalProfile';
 
-const BASE_URL = 'http://localhost:3000/api/person';
-// const BASE_URL = 'https://dms-server.onrender.com/api/person';
-const ENDPOINT = '/post';
-
-function Signup ({ setSubscriber, toggleSubscriber, unSubscribeMe }) {
+function Signup ({ signupNloginToggler, addSubscriberToArray }) {
 
     const [person, setPerson] = useState({
         fn: "", ln: "", username: "", pwd: "", cpwd: ""
@@ -18,25 +12,15 @@ function Signup ({ setSubscriber, toggleSubscriber, unSubscribeMe }) {
 
     useEffect(() => inputfocus.current.focus(), []);
 
-    function signUpHandler (e) {
+    async function signUpHandler (e) {
         e.preventDefault();
         if (pwd === cpwd) {
-            console.log(person);
-            localStorage.setItem("person", JSON.stringify(person));
-            setSubscriber(person);
-
-            // axios.post(BASE_URL + ENDPOINT, { fn, ln, username, pwd })
-            //     .then(res => {
-            //         console.log(res.data.person);
-            //         toggleSubscribed();
-            //     })
-            //     .catch(err => console.log(err));
-            setPerson({ fn: "", mn: "", ln: "", username: "", pwd: "", cpwd: "" });
+            await addSubscriberToArray(person);
+            signupNloginToggler();
+            setPerson({ fn: "", ln: "", username: "", pwd: "", cpwd: "" });
+        } else {
+            alert("Sorry!!\nMismatch passwords");
         }
-        else {
-            alert("unmatch passwords");
-        }
-
     }
 
     function onChangeHandler (e) {
@@ -48,7 +32,6 @@ function Signup ({ setSubscriber, toggleSubscriber, unSubscribeMe }) {
             <form className='signup-form' onSubmit={(e) => signUpHandler(e)}>
                 <h1 className='signup-h1'>Signup Form</h1>
                 <div className='label-n-input-container-inside-form'>
-                    {/* <label htmlFor="first-name">First Name: </label> */}
                     <input
                         name='fn'
                         id='first-name'
@@ -62,7 +45,6 @@ function Signup ({ setSubscriber, toggleSubscriber, unSubscribeMe }) {
                     />
                 </div>
                 <div className='label-n-input-container-inside-form'>
-                    {/* <label htmlFor="first-name">First Name: </label> */}
                     <input
                         name='ln'
                         id='last-name'
@@ -75,7 +57,6 @@ function Signup ({ setSubscriber, toggleSubscriber, unSubscribeMe }) {
                     />
                 </div>
                 <div className='label-n-input-container-inside-form'>
-                    {/* <label htmlFor="first-name">First Name: </label> */}
                     <input
                         name='username'
                         id='username'
@@ -88,7 +69,6 @@ function Signup ({ setSubscriber, toggleSubscriber, unSubscribeMe }) {
                     />
                 </div>
                 <div className='label-n-input-container-inside-form'>
-                    {/* <label htmlFor="first-name">First Name: </label> */}
                     <input
                         name='pwd'
                         id='strong-password'
@@ -101,7 +81,6 @@ function Signup ({ setSubscriber, toggleSubscriber, unSubscribeMe }) {
                     />
                 </div>
                 <div className='label-n-input-container-inside-form'>
-                    {/* <label htmlFor="first-name">First Name: </label> */}
                     <input
                         name='cpwd'
                         id='confirm-pasword'
@@ -124,19 +103,11 @@ function Signup ({ setSubscriber, toggleSubscriber, unSubscribeMe }) {
                 <div className='label-n-input-container-inside-form'>
                     <p className='p'>
                         Already registered?
-                        <a href='#' className='link-btn' onClick={toggleSubscriber}> Login </a>
-                    </p>
-                </div>
-                <div className='label-n-input-container-inside-form'>
-                    <p className='p'>
-                        Not Happy?
-                        <a href='#' className='link-unsubscribe-btn' onClick={unSubscribeMe}> unsubscribe me </a>
+                        <a href='#' className='link-btn' onClick={signupNloginToggler}> Login </a>
                     </p>
                 </div>
             </form>
-
         </div>
-
     );
 }
 
