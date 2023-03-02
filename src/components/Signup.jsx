@@ -1,10 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './form.css';
+import { Context } from '../ContextProvider';
 
-function Signup ({ signupNloginToggler, addSubscriberToArray }) {
+function Signup () {
+
+    const { signup0rLoginToggler, addSubscriberToArray } = useContext(Context);
 
     const [person, setPerson] = useState({
-        fn: "", ln: "", username: "", pwd: "", cpwd: ""
+        fn: "", ln: "", username: "", pwd: "",
+        cpwd: "", stories: []
     });
     const { fn, ln, username, pwd, cpwd } = person;
 
@@ -16,15 +20,15 @@ function Signup ({ signupNloginToggler, addSubscriberToArray }) {
         e.preventDefault();
         if (pwd === cpwd) {
             await addSubscriberToArray(person);
-            signupNloginToggler();
-            setPerson({ fn: "", ln: "", username: "", pwd: "", cpwd: "" });
+            signup0rLoginToggler();
+            setPerson({ fn: "", ln: "", username: "", pwd: "", cpwd: "", stories: [] });
         } else {
-            alert("Sorry!!\nMismatch passwords");
+            alert("Sorry!!\nMismatch Passwords");
         }
     }
 
     function onChangeHandler (e) {
-        setPerson({ ...person, [e.target.name]: e.target.value });
+        setPerson({ ...person, [e.target.id]: e.target.value });
     }
 
     return (
@@ -33,8 +37,7 @@ function Signup ({ signupNloginToggler, addSubscriberToArray }) {
                 <h1 className='signup-h1'>Signup Form</h1>
                 <div className='label-n-input-container-inside-form'>
                     <input
-                        name='fn'
-                        id='first-name'
+                        id='fn'
                         className='signup-inputs'
                         type="text"
                         placeholder='First Name'
@@ -46,8 +49,7 @@ function Signup ({ signupNloginToggler, addSubscriberToArray }) {
                 </div>
                 <div className='label-n-input-container-inside-form'>
                     <input
-                        name='ln'
-                        id='last-name'
+                        id='ln'
                         className='signup-inputs'
                         type="text"
                         placeholder='Last Name'
@@ -58,7 +60,6 @@ function Signup ({ signupNloginToggler, addSubscriberToArray }) {
                 </div>
                 <div className='label-n-input-container-inside-form'>
                     <input
-                        name='username'
                         id='username'
                         className='signup-inputs'
                         type="text"
@@ -70,8 +71,7 @@ function Signup ({ signupNloginToggler, addSubscriberToArray }) {
                 </div>
                 <div className='label-n-input-container-inside-form'>
                     <input
-                        name='pwd'
-                        id='strong-password'
+                        id='pwd'
                         className='signup-inputs'
                         type="password"
                         placeholder='Strong Password'
@@ -82,8 +82,7 @@ function Signup ({ signupNloginToggler, addSubscriberToArray }) {
                 </div>
                 <div className='label-n-input-container-inside-form'>
                     <input
-                        name='cpwd'
-                        id='confirm-pasword'
+                        id='cpwd'
                         className='signup-inputs'
                         type="password"
                         placeholder='Confirm Password'
@@ -103,7 +102,7 @@ function Signup ({ signupNloginToggler, addSubscriberToArray }) {
                 <div className='label-n-input-container-inside-form'>
                     <p className='p'>
                         Already registered?
-                        <a href='#' className='link-btn' onClick={signupNloginToggler}> Login </a>
+                        <a href='#' className='link-btn' onClick={signup0rLoginToggler}> Login </a>
                     </p>
                 </div>
             </form>

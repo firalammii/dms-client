@@ -1,32 +1,39 @@
-.signup-h1 {
-    margin: 1em auto auto;
+* {
+    box-sizing: border-box;
+}
+
+.signup-form-container {
+    display: flex;
+    justify-content: center;
 }
 
 .signup-h1,
 .login-h1 {
+    margin: 1em;
     font-size: 3rem;
 }
 
+.login-h1 {
+    /* height: 678px; */
+}
 .signup-form {
-    background-color: #242424;
+    background-color: #2d2828;
     color: rgb(231, 231, 250);
-    flex-direction: column;
-    gap: 1.5em;
+    display: flex;
+        flex-direction: column;
+justify-content: center;
+    gap: 1em;
     width: 400px;
-    height: 687px;
     padding: .5em .1em 4em;
     border-radius: .4em;
+    
 }
 
 .signup-form,
 .label-n-input-container-inside-form {
     display: flex;
     justify-content: center;
-}
-
-.label-n-input-container-inside-form {
-    width: 100%;
-    gap: 1em;
+    gap: 16px;
 }
 
 .signup-inputs {
@@ -34,21 +41,14 @@
     padding: .5em .5em;
     border: none;
     border-radius: .3em;
-    font-size: 1.25rem;
+    font-size: 1.4rem;
 }
-.signup-inputs:focus,
-.signup-inputs:focus-visible {
+.signup-inputs:focus {
     outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* .signup-inputs:focus,
-.signup-inputs:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-} */
 
-
-#type-submit-input,
-.log-out-btn {
+#type-submit-input {
     padding: .5em 1em;
     background-color: rgb(139, 135, 135);
     color: rgb(231, 231, 250);
@@ -62,7 +62,7 @@
     background-color: rgb(96, 100, 104);
 }
 
-p>a {
+p>.link-btn {
     font-weight: 900;
     font-size: 1.5rem;
     color: rgb(231, 231, 250);
@@ -80,7 +80,6 @@ p>a:hover {
 .p {
     color: rgb(231, 231, 250);
 }
-
 /* .signup-form-container {
     width: 400px;
     height: 100vh;
