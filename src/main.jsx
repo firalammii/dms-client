@@ -7,11 +7,11 @@ import './index.css';
 import { ContextProvider } from './ContextProvider';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
+  <React.StrictMode>
   <ContextProvider>
     <App />
   </ContextProvider>
 
-  // <App2 />
-  // </React.StrictMode>,
+  {/* // <App2 /> */}
+  </React.StrictMode>,
 );

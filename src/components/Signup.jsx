@@ -32,7 +32,7 @@ function Signup () {
     }
 
     return (
-        <div className='signup-form-container'>
+        // <div className='signup-form-container'>
             <form className='signup-form' onSubmit={(e) => signUpHandler(e)}>
                 <h1 className='signup-h1'>Signup Form</h1>
                 <div className='label-n-input-container-inside-form'>
@@ -106,7 +106,7 @@ function Signup () {
                     </p>
                 </div>
             </form>
-        </div>
+
     );
 }
 

@@ -44,7 +44,7 @@ function Login () {
     }
 
     return (
-        <div className='signup-form-container login'>
+        // <div className='signup-form-container login'>
                 <form className='signup-form' onSubmit={(e) => handleLogin(e)} >
                     <h1 className='login-h1'>Login Form</h1>
 
@@ -87,7 +87,7 @@ function Login () {
                 </div>
                 </form>
 
-        </div>
+        // </div>
     );
 }
 export default Login;

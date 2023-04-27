@@ -9,13 +9,11 @@ function App () {
 
     const { renderLogin0rSignup } = useContext(Context);
     return (
-        <div className="App">
-            {/* <div className='inner-app'> */}
+        <div className="Ap">
                 {
                 renderLogin0rSignup ?
                     <IdlerLogin /> : <Signup />
                 }
-            {/* </div> */}
         </div>
     );
 }

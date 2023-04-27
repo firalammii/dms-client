@@ -7,6 +7,7 @@ function StoryDisplayer ({ toggleDiplayPosts }) {
 
     return (
         <div className='story'>
+
             {stories.length == 0 && <><h1>Sorry you haven't created any yet</h1>
                 {setTimeout(toggleDiplayPosts, 1500)} </>}
             {
@@ -33,9 +34,7 @@ function StoryDisplayer ({ toggleDiplayPosts }) {
                     );
                 })
             }
-            <div className='position-fixed'>
-                <a href='' onClick={toggleDiplayPosts}>create posts</a>
-            </div>
+
         </div>
 
     );

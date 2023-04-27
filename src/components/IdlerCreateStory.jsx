@@ -15,6 +15,9 @@ function IdlerCreateStory () {
 
     return (
         <div className='root-pp-container'>
+            <div className='position-sticky'>
+                <a href='#' onClick={toggleDiplayPosts}>create posts</a>
+            </div>
             {
                 stories && displayPosts ?
                     <StoryDisplayer toggleDiplayPosts={toggleDiplayPosts} />
